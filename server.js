@@ -5,7 +5,7 @@ import foodRouter from './routes/foodRoute.js';
 import userRouter from './routes/userRoute.js';
 import cartRouter from './routes/cartRoute.js';
 import orderRouter from './routes/orderRoute.js';
-import donationRouter from './routes/donationRoute.js';
+import donationRouter from './routes/donationRoute.js';  
 import 'dotenv/config';
 
 // app config
@@ -19,6 +19,11 @@ app.use(cors());
 // db connection
 connectDB();
 
+// health check endpoint
+app.get('/health', (req, res) => {
+    res.status(200).send('OK');
+});
+
 // api endpoint
 app.use('/api/food', foodRouter);
 app.use('/images', express.static('uploads'));
@@ -26,10 +31,7 @@ app.use('/api/user', userRouter);
 app.use('/api/cart', cartRouter);
 app.use('/api/order', orderRouter);
 app.use('/api/donate', donationRouter);
-app.use('/api/donations', donationRouter);
-
-// Enable CORS for specific routes
-app.use('/api/food', cors()); // Enable CORS for food routes
+app.use('/api/donations', donationRouter);  // Ensure this route is correct
 
 app.get('/', (req, res) => {
     res.send('API Working');
