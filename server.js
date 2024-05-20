@@ -19,11 +19,6 @@ app.use(cors());
 // db connection
 connectDB();
 
-// health check endpoint
-app.get('/health', (req, res) => {
-    res.status(200).send('OK');
-});
-
 // api endpoint
 app.use('/api/food', foodRouter);
 app.use('/images', express.static('uploads'));
