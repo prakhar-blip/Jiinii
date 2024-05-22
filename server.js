@@ -14,14 +14,18 @@ const port = 4000;
 
 // middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:5173', 'http://localhost:5174'] // Allow requests from both local frontend URLs
+}));
 
 // db connection
 connectDB();
 
+// Serve static files from the 'uploads' directory
+app.use('/images', express.static('uploads'));
+
 // api endpoint
 app.use('/api/food', foodRouter);
-app.use('/images', express.static('uploads'));
 app.use('/api/user', userRouter);
 app.use('/api/cart', cartRouter);
 app.use('/api/order', orderRouter);
